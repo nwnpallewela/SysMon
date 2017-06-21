@@ -1,0 +1,604 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    version: "1.0.0",
+  title: "Swagger Petstore"
+  },
+  "basePath" : "/",
+  "tags" : [ {
+    "name" : "Item Service"
+  }, {
+    "name" : "Price Service"
+  } ],
+  "schemes" : [ "http" ],
+  "paths" : {
+    "/v1/price" : {
+      "get" : {
+        "tags" : [ "Price Service" ],
+        "summary" : "Get Price",
+        "description" : "",
+        "operationId" : "getPrice",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "opco",
+          "in" : "query",
+          "description" : "010",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "customerId",
+          "in" : "query",
+          "description" : "403030",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "internal",
+          "in" : "query",
+          "description" : "false",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "userId",
+          "in" : "query",
+          "description" : "csr",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "deliveryDate",
+          "in" : "query",
+          "description" : "2017-03-22",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "productKeys",
+          "in" : "query",
+          "description" : "6195440-cs",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "collectionFormat" : "multi"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Price Service" ],
+        "summary" : "Update Price",
+        "description" : "",
+        "operationId" : "updatePrice",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/UpdatePriceRequest"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/AssociatePrice"
+            }
+          }
+        }
+      }
+    },
+    "/v1/products" : {
+      "get" : {
+        "tags" : [ "Item Service" ],
+        "summary" : "Get products details for list of products",
+        "description" : "",
+        "operationId" : "getMultiple",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "opco",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "customerId",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "supcList",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "collectionFormat" : "multi"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object",
+              "additionalProperties" : {
+                "$ref" : "#/definitions/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/products/history/{opco}/{customerId}/{supc}" : {
+      "get" : {
+        "tags" : [ "Item Service" ],
+        "summary" : "Get Item History",
+        "description" : "",
+        "operationId" : "getItemHistory",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "opco",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "default" : "010"
+        }, {
+          "name" : "customerId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "default" : "042374"
+        }, {
+          "name" : "supc",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "default" : "1394196"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ItemHistory"
+            }
+          }
+        }
+      }
+    },
+    "/v1/products/nutrition/{supc}" : {
+      "get" : {
+        "tags" : [ "Item Service" ],
+        "summary" : "Get nutrition information for a product",
+        "description" : "",
+        "operationId" : "getNutrition",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "supc",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "/v1/products/{supc}/{opco}/{customerId}" : {
+      "get" : {
+        "tags" : [ "Item Service" ],
+        "summary" : "Get product details by ID",
+        "description" : "",
+        "operationId" : "getById",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "supc",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "opco",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "customerId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ProductResponseMessage"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "UpdatePriceRequest" : {
+      "type" : "object",
+      "properties" : {
+        "opco" : {
+          "type" : "string",
+          "example" : "010"
+        },
+        "customerId" : {
+          "type" : "string",
+          "example" : "403030"
+        },
+        "deliveryDate" : {
+          "type" : "string",
+          "example" : "2017-03-21"
+        },
+        "userId" : {
+          "type" : "string",
+          "example" : "csr"
+        },
+        "supc" : {
+          "type" : "string",
+          "example" : "2368892"
+        },
+        "soldAs" : {
+          "type" : "string",
+          "example" : "CS"
+        },
+        "price" : {
+          "type" : "string",
+          "example" : "30.1"
+        },
+        "internal" : {
+          "type" : "boolean",
+          "example" : true,
+          "default" : false
+        }
+      }
+    },
+    "Category" : {
+      "type" : "object",
+      "properties" : {
+        "completeCategoryId" : {
+          "type" : "string"
+        },
+        "mainCategoryId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "label" : {
+          "type" : "string"
+        }
+      }
+    },
+    "IsSoldAs" : {
+      "type" : "object",
+      "properties" : {
+        "isCase" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "isSplit" : {
+          "type" : "boolean",
+          "default" : false
+        }
+      }
+    },
+    "ProductResponseMessage" : {
+      "type" : "object",
+      "properties" : {
+        "product" : {
+          "$ref" : "#/definitions/Product"
+        }
+      }
+    },
+    "Message" : {
+      "type" : "object",
+      "properties" : {
+        "type" : {
+          "type" : "string"
+        },
+        "message" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ItemHistory" : {
+      "type" : "object",
+      "properties" : {
+        "caseWeek1" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "caseWeek2" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "caseWeek3" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "caseWeek4" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "caseTotal" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "splitWeek1" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "splitWeek2" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "splitWeek3" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "splitWeek4" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "splitTotal" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "lastOrderedDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        }
+      }
+    },
+    "Product" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "materialId" : {
+          "type" : "string"
+        },
+        "supplier" : {
+          "type" : "string"
+        },
+        "brand" : {
+          "type" : "string"
+        },
+        "type" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "nickName" : {
+          "type" : "string"
+        },
+        "averageWeightPerCase" : {
+          "type" : "number"
+        },
+        "packSize" : {
+          "$ref" : "#/definitions/PackSize"
+        },
+        "deleted" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "userImages" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "isSoldAs" : {
+          "$ref" : "#/definitions/IsSoldAs"
+        },
+        "isCatchWeight" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "storageFlag" : {
+          "type" : "string"
+        },
+        "isAvailable" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "replacementMaterialId" : {
+          "type" : "string"
+        },
+        "hasReplacement" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "category" : {
+          "$ref" : "#/definitions/Category"
+        },
+        "messages" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Message"
+          }
+        },
+        "isOrderable" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "canBuy" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "images" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "flags" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "split" : {
+          "$ref" : "#/definitions/Split"
+        },
+        "stockIndicator" : {
+          "type" : "string"
+        },
+        "stockStatus" : {
+          "type" : "string"
+        },
+        "coreIndicator" : {
+          "type" : "string"
+        },
+        "classification" : {
+          "type" : "string",
+          "enum" : [ "NATIONAL_CORE", "CORE_CLOSED_CODE", "CORE_NO_LONGER_USED", "CORE_SPECIAL_ORDER", "CORE_LOCAL_EXCEPTIONS", "CORPORATE_PROPRIETARY", "NON_CORE_CLOSE_CODED", "NON_CORE_LOCAL_EXCEPTIONS", "NON_CORE_SPECIAL_ORDER", "NON_CORE_NO_LONGER_USED", "NO_LONGER_MANUFACTURED", "TRANSACTIONAL" ]
+        },
+        "externalUPC" : {
+          "type" : "string"
+        },
+        "manufacturerCode" : {
+          "type" : "string"
+        },
+        "lineDescription" : {
+          "type" : "string"
+        },
+        "portionSize" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Split" : {
+      "type" : "object",
+      "properties" : {
+        "min" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "max" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "AssociatePrice" : {
+      "type" : "object",
+      "properties" : {
+        "supc" : {
+          "type" : "string"
+        },
+        "soldAs" : {
+          "type" : "string"
+        },
+        "unitsPerCase" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "perWeightFlag" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "averageNetWeight" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "agreementFlag" : {
+          "type" : "string"
+        },
+        "priceUOM" : {
+          "type" : "string"
+        },
+        "price" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "originalPrice" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "priceSource" : {
+          "type" : "string"
+        },
+        "maxHandlingFlag" : {
+          "type" : "string"
+        },
+        "minHandlingFlag" : {
+          "type" : "string"
+        },
+        "maxPrice" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "minPrice" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "lastGrossProfit" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "lastGrossProfitPercentage" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "lastPrice" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "combase" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "p1" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "p2" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "p3" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "handPricingAllowedFlag" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "messages" : {
+          "type" : "object",
+          "additionalProperties" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "PackSize" : {
+      "type" : "object",
+      "properties" : {
+        "pack" : {
+          "type" : "string"
+        },
+        "size" : {
+          "type" : "string"
+        },
+        "uom" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}
